@@ -5,6 +5,8 @@ Measure Your Heart Rate Using Your Webcam!
 
 This project can monitor a user's heart rate in real time using just a webcam. It is a PPG ([Photoplethysmogram](https://en.wikipedia.org/wiki/Photoplethysmogram)) solution based on a color magnification [algorithm](http://people.csail.mit.edu/mrub/papers/vidmag.pdf) which makes it possible to see the color of your face change as blood rushes in and out of your head. This project allows you to visualize your face as it pulsates in real time. Since it is able to detect your pulses, it also calculates your heart rate in beats per minute (BPM). 
 
+![Demo Gif](https://media.giphy.com/media/idMIx2UeRIA8Kb2YAz/giphy.gif)
+
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing.
 
@@ -43,6 +45,8 @@ python main.py
 ```
 
 The webcam light should activate and there should be a small window that appears. The program takes a few seconds to detect the pulse and start calculating your heart rate so be patient. 
+
+To quit the program press 'q' on your keyboard.
 
 ### Tips for Best Results
 
