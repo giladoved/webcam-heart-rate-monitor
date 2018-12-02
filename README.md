@@ -44,6 +44,8 @@ python main.py
 
 The webcam light should activate and there should be a small window that appears. The program takes a few seconds to detect the pulse and start calculating your heart rate so be patient. 
 
+To quit the program press 'q'.
+
 ### Tips for Best Results
 
 - Make sure your face is well lit
