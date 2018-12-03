@@ -6,6 +6,7 @@ December 2018
 
 import numpy as np
 import cv2
+import sys
 
 # Helper Methods
 def buildGauss(frame, levels):
@@ -22,15 +23,29 @@ def reconstructFrame(pyramid, index, levels):
     return filteredFrame
 
 # Webcam Parameters
-webcam = cv2.VideoCapture(0)
+webcam = None
+if len(sys.argv) == 2:
+    webcam = cv2.VideoCapture(sys.argv[1])
+else:
+    webcam = cv2.VideoCapture(0)
 realWidth = 320
 realHeight = 240
 videoWidth = 160
 videoHeight = 120
 videoChannels = 3
-videoFrameRate = 30
+videoFrameRate = 15
 webcam.set(3, realWidth);
 webcam.set(4, realHeight);
+
+# Output Videos
+if len(sys.argv) != 2:
+    originalVideoFilename = "original.mov"
+    originalVideoWriter = cv2.VideoWriter()
+    originalVideoWriter.open(originalVideoFilename, cv2.cv.CV_FOURCC('j', 'p', 'e', 'g'), videoFrameRate, (realWidth, realHeight), True)
+
+outputVideoFilename = "output.mov"
+outputVideoWriter = cv2.VideoWriter()
+outputVideoWriter.open(outputVideoFilename, cv2.cv.CV_FOURCC('j', 'p', 'e', 'g'), videoFrameRate, (realWidth, realHeight), True)
 
 # Color Magnification Parameters
 levels = 3
@@ -63,7 +78,7 @@ mask = (frequencies >= minFrequency) & (frequencies <= maxFrequency)
 # Heart Rate Calculation Variables
 bpmCalculationFrequency = 15
 bpmBufferIndex = 0
-bpmBufferSize = 40
+bpmBufferSize = 10
 bpmBuffer = np.zeros((bpmBufferSize))
 
 i = 0
@@ -71,6 +86,10 @@ while (True):
     ret, frame = webcam.read()
     if ret == False:
         break
+
+    if len(sys.argv) != 2:
+        originalFrame = frame.copy()
+        originalVideoWriter.write(originalFrame)
 
     detectionFrame = frame[videoHeight/2:realHeight-videoHeight/2, videoWidth/2:realWidth-videoWidth/2, :]
 
@@ -109,10 +128,16 @@ while (True):
     else:
         cv2.putText(frame, "Calculating BPM...", loadingTextLocation, font, fontScale, fontColor, lineType)
 
-    cv2.imshow("Webcam Heart Rate Monitor", frame)
+    outputVideoWriter.write(frame)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    if len(sys.argv) != 2:
+        cv2.imshow("Webcam Heart Rate Monitor", frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
 webcam.release()
 cv2.destroyAllWindows()
+outputVideoWriter.release()
+if len(sys.argv) != 2:
+    originalVideoWriter.release()
