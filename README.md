@@ -44,9 +44,15 @@ Once the project is downloaded. Run the python file:
 python main.py
 ```
 
-The webcam light should activate and there should be a small window that appears. The program takes a few seconds to detect the pulse and start calculating your heart rate so be patient. 
+The webcam light should activate and there should be a small window that appears. The program takes a few seconds to detect the pulse and start calculating your heart rate so be patient. While the program is running, it saves the original unmodified webcam video as 'original.mov' as well as a video of the output called 'output.mov'. Both of these videos will be overwritten every time the program is run, so make sure to copy the videos you would like to save to another directory.
 
 To quit the program press 'q' on your keyboard.
+
+
+If you would like this program to analyze a video, instead of the real time webcam, simply pass the location of the video as a parameter. The program will generate an output based on the provided video. The input video must be 320x240. Here is an example:
+```
+python main.py original.mov
+```
 
 ### Tips for Best Results
 
