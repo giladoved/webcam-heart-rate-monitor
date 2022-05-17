@@ -41,11 +41,11 @@ webcam.set(4, realHeight);
 if len(sys.argv) != 2:
     originalVideoFilename = "original.mov"
     originalVideoWriter = cv2.VideoWriter()
-    originalVideoWriter.open(originalVideoFilename, cv2.cv.CV_FOURCC('j', 'p', 'e', 'g'), videoFrameRate, (realWidth, realHeight), True)
+    originalVideoWriter.open(originalVideoFilename, cv2.VideoWriter_fourcc('j', 'p', 'e', 'g'), videoFrameRate, (realWidth, realHeight), True)
 
 outputVideoFilename = "output.mov"
 outputVideoWriter = cv2.VideoWriter()
-outputVideoWriter.open(outputVideoFilename, cv2.cv.CV_FOURCC('j', 'p', 'e', 'g'), videoFrameRate, (realWidth, realHeight), True)
+outputVideoWriter.open(outputVideoFilename, cv2.VideoWriter_fourcc('j', 'p', 'e', 'g'), videoFrameRate, (realWidth, realHeight), True)
 
 # Color Magnification Parameters
 levels = 3
@@ -91,7 +91,7 @@ while (True):
         originalFrame = frame.copy()
         originalVideoWriter.write(originalFrame)
 
-    detectionFrame = frame[videoHeight/2:realHeight-videoHeight/2, videoWidth/2:realWidth-videoWidth/2, :]
+    detectionFrame = frame[videoHeight//2:realHeight-videoHeight//2, videoWidth//2:realWidth-videoWidth//2, :]
 
     # Construct Gaussian Pyramid
     videoGauss[bufferIndex] = buildGauss(detectionFrame, levels+1)[levels]
@@ -121,8 +121,8 @@ while (True):
 
     bufferIndex = (bufferIndex + 1) % bufferSize
 
-    frame[videoHeight/2:realHeight-videoHeight/2, videoWidth/2:realWidth-videoWidth/2, :] = outputFrame
-    cv2.rectangle(frame, (videoWidth/2 , videoHeight/2), (realWidth-videoWidth/2, realHeight-videoHeight/2), boxColor, boxWeight)
+    frame[videoHeight//2:realHeight-videoHeight//2, videoWidth//2:realWidth-videoWidth//2, :] = outputFrame
+    cv2.rectangle(frame, (videoWidth//2 , videoHeight//2), (realWidth-videoWidth//2, realHeight-videoHeight//2), boxColor, boxWeight)
     if i > bpmBufferSize:
         cv2.putText(frame, "BPM: %d" % bpmBuffer.mean(), bpmTextLocation, font, fontScale, fontColor, lineType)
     else:
