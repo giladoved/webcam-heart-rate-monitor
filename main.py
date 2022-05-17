@@ -34,8 +34,8 @@ videoWidth = 160
 videoHeight = 120
 videoChannels = 3
 videoFrameRate = 15
-webcam.set(3, realWidth);
-webcam.set(4, realHeight);
+webcam.set(3, realWidth)
+webcam.set(4, realHeight)
 
 # Output Videos
 if len(sys.argv) != 2:
