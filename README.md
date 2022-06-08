@@ -17,7 +17,7 @@ These are the library versions I am using (other versions haven't been tested):
 ```
 python 2.7.13
 numpy  1.13.1
-opencv 2.4.11
+opencv 4.5.5
 ```
 
 ### Installing
